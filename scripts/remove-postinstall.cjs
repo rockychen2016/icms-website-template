@@ -1,7 +1,7 @@
-import { existsSync, unlinkSync, readFileSync, writeFileSync } from 'fs';
-import { join } from 'path';
+const { existsSync, unlinkSync, readFileSync, writeFileSync } = require('fs');
+const { join } = require('path');
 
-// 删除 create-env-files.js 文件
+// 删除 create-env-files.cjs 文件
 const createEnvFilesPath = join(__dirname, 'create-env-files.cjs');
 if (existsSync(createEnvFilesPath)) {
   unlinkSync(createEnvFilesPath);
@@ -23,8 +23,7 @@ writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
 console.log('Cleanup completed successfully');
 
 // 删除自身文件
-const currentScriptPath = __filename;
-if (existsSync(currentScriptPath)) {
-  unlinkSync(currentScriptPath);
+if (existsSync(__filename)) {
+  unlinkSync(__filename);
   console.log('Removed scripts/remove-postinstall.cjs');
 }

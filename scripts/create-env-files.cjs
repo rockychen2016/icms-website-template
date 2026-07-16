@@ -1,5 +1,5 @@
-import { existsSync, copyFileSync, unlinkSync } from 'fs';
-import { join } from 'path';
+const { existsSync, copyFileSync, unlinkSync } = require('fs');
+const { join } = require('path');
 
 const envFiles = ['.env.development', '.env.local', '.env.production'];
 

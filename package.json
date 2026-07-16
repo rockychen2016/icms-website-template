@@ -1,15 +1,14 @@
 {
 	"name": "icms-website-template",
 	"version": "0.0.1",
-	"description": "A website template based on Next.js 14 (app directory) and HeroUI v3, the content of the website relies on iCMS",
+	"description": "A website template based on Next.js 16 (app directory) and HeroUI v3, the content of the website relies on iCMS",
 	"type": "module",
-	"private": true,
 	"scripts": {
 		"dev": "next dev --turbopack -p 3000",
 		"build": "next build",
 		"start": "next start",
 		"lint": "eslint --fix",
-		"postinstall": "node scripts/create-env-files.js && npm run remove-postinstall"
+		"postinstall": "node scripts/create-env-files.cjs && node scripts/remove-postinstall.cjs"
 	},
 	"dependencies": {
 		"@heroui/react": "3.2.2",
@@ -55,6 +54,7 @@
 		"typescript": "5.6.3"
 	},
 	"keywords": [
+		"icms",
 		"nextjs",
 		"heroui",
 		"template",
@@ -70,30 +70,5 @@
 		"url": "https://github.com/rockychen2016/icms-website-template.git"
 	},
 	"license": "MIT",
-	"author": "ROCK <szygnet@qq.com>",
-	"main": "next.config.ts",
-	"files": [
-		"app/",
-		"components/",
-		"config/",
-		"i18n/",
-		"scripts/",
-		"stores/",
-		"styles/",
-		"types/",
-		"public/",
-		".env.development.example",
-		".env.local.example",
-		".env.production.example",
-		".npmrc",
-		"next.config.ts",
-		"postcss.config.mjs",
-		"tsconfig.json",
-		"proxy.ts",
-		"README.md",
-		"LICENSE",
-		"next-env.d.ts",
-		"eslint.config.mjs",
-		"dockerfile"
-	]
+	"author": "ROCK <szygnet@qq.com>"
 }

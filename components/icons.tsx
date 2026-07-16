@@ -2,27 +2,117 @@ import * as React from "react";
 
 import { IconSvgProps } from "@/types";
 
-export const Logo: React.FC<IconSvgProps> = ({
-  size = 36,
-  width,
-  height,
-  ...props
-}) => (
-  <svg
-    fill="none"
-    height={size || height}
-    viewBox="0 0 32 32"
-    width={size || width}
-    {...props}
-  >
-    <path
-      clipRule="evenodd"
-      d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
-      fill="currentColor"
-      fillRule="evenodd"
-    />
-  </svg>
-);
+interface IconsLogoProps {
+  size?: number;
+  className?: string;
+  showSubtitle?: boolean;
+}
+
+export const Logo: React.FC<IconsLogoProps> = ({
+  size = 45,
+  className,
+  showSubtitle = false,
+}) => {
+  // 原始 viewBox 比例：500×120
+  const aspectRatio = 333 / 80;
+  const width = size * aspectRatio;
+  const height = size;
+
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 333 80"
+      width={width}
+      height={height}
+      className={className}
+      role="img"
+      aria-label="iCMS"
+    >
+      <defs>
+        <linearGradient id="icms-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#4F46E5" />
+          <stop offset="100%" stopColor="#7C3AED" />
+        </linearGradient>
+      </defs>
+
+      {/* 图标：层叠内容块 */}
+      {/* 底层 */}
+      <rect
+        x="24" y="48"
+        width="28" height="24"
+        rx="5"
+        fill="#C7D2FE"
+        opacity="0.7"
+      />
+      {/* 中层 */}
+      <rect
+        x="38" y="32"
+        width="28" height="24"
+        rx="5"
+        fill="#A5B4FC"
+        opacity="0.85"
+      />
+      {/* 顶层 + 内容线 */}
+      <rect
+        x="52" y="20"
+        width="28" height="24"
+        rx="5"
+        fill="url(#icms-grad)"
+      />
+      <line
+        x1="58" y1="27" x2="74" y2="27"
+        stroke="#fff"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        opacity="0.7"
+      />
+      <line
+        x1="58" y1="32" x2="70" y2="32"
+        stroke="#fff"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        opacity="0.5"
+      />
+      <line
+        x1="58" y1="37" x2="66" y2="37"
+        stroke="#fff"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        opacity="0.3"
+      />
+
+      {/* 主文字 iCMS */}
+      <text
+        x="100" y="48"
+        fontFamily="system-ui, -apple-system, sans-serif"
+        fontSize="38"
+        fontWeight="700"
+        fill="#0F172A"
+        letterSpacing="-0.5"
+      >
+        i
+        <tspan fontWeight="350" fill="#4F46E5">
+          CMS
+        </tspan>
+      </text>
+
+      {/* 副标题 */}
+      {showSubtitle && (
+        <text
+          x="100" y="68"
+          fontFamily="system-ui, -apple-system, sans-serif"
+          fontSize="12"
+          fill="#64748B"
+          letterSpacing="2.5"
+          fontWeight="400"
+        >
+          CONTENT MANAGEMENT SYSTEM
+        </text>
+      )}
+    </svg>
+  );
+};
+
 
 export const DiscordIcon: React.FC<IconSvgProps> = ({
   size = 24,

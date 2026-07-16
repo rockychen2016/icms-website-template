@@ -1,0 +1,28 @@
+{
+  "site": {
+    "title": "56 E-Commerce",
+    "description": "Premium online shopping experience"
+  },
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "cart": "Cart",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero": {
+      "title": "Discover Quality Products",
+      "subtitle": "Curated collection for your lifestyle"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "viewMore": "View More",
+    "buyNow": "Buy Now",
+    "addToCart": "Add to Cart"
+  },
+  "footer": {
+    "copyright": "© 2026 56 E-Commerce. All rights reserved."
+  }
+}

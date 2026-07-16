@@ -1,0 +1,28 @@
+{
+  "site": {
+    "title": "五六電商",
+    "description": "優質線上購物體驗"
+  },
+  "nav": {
+    "home": "首頁",
+    "products": "商品",
+    "cart": "購物車",
+    "about": "關於",
+    "contact": "聯絡"
+  },
+  "home": {
+    "hero": {
+      "title": "發現品質好物",
+      "subtitle": "為你的生活精挑細選"
+    }
+  },
+  "common": {
+    "loading": "載入中...",
+    "viewMore": "查看更多",
+    "buyNow": "立即購買",
+    "addToCart": "加入購物車"
+  },
+  "footer": {
+    "copyright": "© 2026 五六電商 版權所有"
+  }
+}

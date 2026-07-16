@@ -1,14 +1,14 @@
 import { getRequestConfig, getTranslations } from 'next-intl/server';
 import { Metadata } from 'next';
-import { GetUserLocale } from './service';
 import { defaultLocale } from './config';
+import { getLocale } from './service';
 export default getRequestConfig(async () => {
-  const locale = await GetUserLocale();
+  const locale = await getLocale();
   let msg;
   try {
-    msg = (await import(`./json/${locale}.json`)).default;
+    msg = (await import(`./lang/${locale}.json`)).default;
   } catch (e) {
-    msg = (await import(`./json/${defaultLocale}.json`)).default;
+    msg = (await import(`./lang/${defaultLocale}.json`)).default;
   }
   return {
     locale,

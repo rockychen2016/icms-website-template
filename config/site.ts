@@ -9,35 +9,58 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "Products",
-      href: "/product",
+      label: "Docs",
+      href: "/docs",
+    },
+    {
+      label: "Pricing",
+      href: "/pricing",
+    },
+    {
+      label: "Blog",
+      href: "/blog",
     },
     {
       label: "About",
       href: "/about",
-    },
-    {
-      label: "Contact",
-      href: "/contact",
     },
   ],
   navMenuItems: [
     {
-      label: "Home",
-      href: "/",
+      label: "Profile",
+      href: "/profile",
     },
     {
-      label: "Products",
-      href: "/product",
+      label: "Dashboard",
+      href: "/dashboard",
     },
     {
-      label: "About",
-      href: "/about",
+      label: "Projects",
+      href: "/projects",
     },
     {
-      label: "Contact",
-      href: "/contact",
-    }
+      label: "Team",
+      href: "/team",
+    },
+    {
+      label: "Calendar",
+      href: "/calendar",
+    },
+    {
+      label: "Settings",
+      href: "/settings",
+    },
+    {
+      label: "Help & Feedback",
+      href: "/help-feedback",
+    },
+    {
+      label: "Logout",
+      href: "/logout",
+    },
   ],
-
+  links: {
+    github: "https://github.com/rockychen2016/icms-website-template",
+    docs: "https://www.icms.xin"
+  },
 };

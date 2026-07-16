@@ -1,44 +1,63 @@
+import { siteConfig } from "@/config/site";
+import { title, subtitle } from "@/components/primitives";
+import { GithubIcon } from "@/components/icons";
+import { buildServer } from "./api/services/server";
+import { Metadata } from "next";
 
-import CustomersSayCard from "@/components/customers-say-card";
-import { GetHomeWeb, GetReviewList } from "./api/server/server";
-import Subscribe from "@/components/subscribe";
-import HomeBanner from "@/components/page/home/home-banner";
-import HomeIBootCms from "@/components/page/home/home-iboot-cms";
-const page = async () => GetHomeWeb();
-export const metadata = async () => (await page()).metadata
+export async function generateMetadata(): Promise<Metadata> {
+  const server = await buildServer();
+  const model = await server.loadWebsite();
+  return {
+    ...model.metadata,
+    title: model.metadata?.title ?? model.website.name
+  }
+}
 
-export default async function Home() {
-  const reviewData = await GetReviewList({})
-
+export default function Home() {
   return (
-    <>
-      {
-        /**
-         * AI操作请在这里插入
-         */
-      }
-      <HomeBanner />
+    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+      <div className="inline-block max-w-xl text-center justify-center">
+        <span className={title()}>Make&nbsp;</span>
+        <span className={title({ color: "blue" })}>beautiful&nbsp;</span>
+        <br />
+        <span className={title()}>
+          websites regardless of your design experience.
+        </span>
+        <div className={subtitle({ class: "mt-4" })}>
+          Beautiful, fast and modern React UI library.
+        </div>
+      </div>
 
-      <section className="container mx-auto pt-16 pb-8 rounded-md dark:shadow-none dark:px-0">
-        <HomeIBootCms />
-      </section>
+      <div className="flex gap-3">
+        <a
+          className="button button--primary button--md rounded-full"
+          href={siteConfig.links.docs}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Documentation
+        </a>
+        <a
+          className="button button--tertiary button--md rounded-full"
+          href={siteConfig.links.github}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <GithubIcon size={20} />
+          GitHub
+        </a>
+      </div>
 
-      {/* Technology Section */}
-      {/* <section className="container mx-auto py-16">
-        <TechnologyWrap />
-      </section> */}
-
-      {/* Reviews */}
-      {
-        reviewData && reviewData.length > 0 ? <section className="container mx-auto py-8 px-6 shadow-2xl rounded-md dark:shadow-none dark:px-0">
-          <CustomersSayCard data={reviewData} />
-        </section> : null
-      }
-
-      {/* CTA Section */}
-      <section className="container mx-auto py-16 px-6 dark:px-0">
-        <Subscribe />
-      </section>
-    </>
+      <div className="mt-8">
+        <div className="flex items-center gap-2 rounded-xl bg-surface shadow-surface px-4 py-2">
+          <pre className="text-sm  font-mediumfont-mono">
+            Get started by editing{" "}
+            <code className="px-2 py-1 h-fit font-mono font-normal inline whitespace-nowrap rounded-sm bg-accent/20 text-accent text-sm">
+              app/page.tsx
+            </code>
+          </pre>
+        </div>
+      </div>
+    </section>
   );
 }

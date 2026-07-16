@@ -2,12 +2,14 @@
 
 import { cookies, headers } from 'next/headers';
 import { defaultLocale, locales } from './config';
-import { NextResponse } from 'next/server';
-const COOKIE_NAME = 'NEXT_LOCALE';
-const COOKIE_WEBSITE_ID = 'NEXT_WEBSITE_ID';
-const COOKIE_WEBSITE_NO = 'NEXT_WEBSITE_NO';
-export async function GetUserLocale() {
-  const locale = (await cookies()).get(COOKIE_NAME)?.value
+import { I18NWebsite } from 'icms-api';
+import { COOKIE_NAMES } from "@rock.chen/icms-http-client"
+const COOKIE_LOCALE_NAME = COOKIE_NAMES.IBOOT_LANG;
+const COOKIE_WEBSITE_ID = COOKIE_NAMES.IBOOT_WEBSITE_ID;
+const COOKIE_WEBSITE_NO = COOKIE_NAMES.IBOOT_WEBSITE_NO;
+
+export async function getLocale() {
+  const locale = (await cookies()).get(COOKIE_LOCALE_NAME)?.value
   if (locale) return locale
   const acceptLanguage = (await headers()).get('accept-language')
   const parsedLocale = acceptLanguage?.split(',')[0].split('-')[0] ?? ''
@@ -15,15 +17,9 @@ export async function GetUserLocale() {
   return lang;
 }
 
-export async function setUserLocale(locale: I18N, websiteId:string, websiteNo:string) {
+export async function setLocale(website:I18NWebsite) {
   const cookie = await cookies();
-  cookie.set(COOKIE_NAME, locale);
-  cookie.set(COOKIE_WEBSITE_ID, websiteId);
-  cookie.set(COOKIE_WEBSITE_NO, websiteNo);
-}
-
-export async function routerSetLocale(response: NextResponse, locale: I18N, websiteId:string, websiteNo:string) {
-  response.cookies.set(COOKIE_NAME, locale);
-  response.cookies.set(COOKIE_WEBSITE_ID, websiteId);
-  response.cookies.set(COOKIE_WEBSITE_NO, websiteNo);
+  cookie.set(COOKIE_LOCALE_NAME, website.code);
+  cookie.set(COOKIE_WEBSITE_ID, website.websiteId);
+  cookie.set(COOKIE_WEBSITE_NO, website.websiteNo);
 }

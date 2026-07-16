@@ -1,95 +1,82 @@
-import {
-  Navbar as HeroUINavbar,
-  NavbarContent,
-  NavbarMenu,
-  NavbarMenuToggle,
-  NavbarBrand,
-  NavbarItem,
-  NavbarMenuItem,
-} from "@heroui/navbar";
-import { Link } from "@heroui/link";
-import { link as linkStyles } from "@heroui/theme";
+
 import NextLink from "next/link";
 import clsx from "clsx";
-import { siteConfig } from "@/config/site";
+
 import { ThemeSwitch } from "@/components/theme-switch";
-import I18nList from "./i18n-list";
+import {
+  Logo,
+} from "@/components/icons";
+import { LanguageSelect } from "./language-select";
+import { getLocale } from "next-intl/server";
+import { I18NWebsite, WebsiteNavVO } from "icms-api";
 import { GetI18n } from "@/i18n/request";
-import SearchInput from "./search-input";
 
-
-export const Navbar = ({
-  lang,
-  i18nList
-}: {
-  lang: string,
-  i18nList: Array<I18NWebSite>
-}) => {
+export const Navbar = async ({ navList, i18nList }: Readonly<{
+  navList: Array<WebsiteNavVO>,
+  i18nList: Array<I18NWebsite>
+}>) => {
+  const locale = await getLocale();
+  const home = await GetI18n('nav','home')
+  //const i18nlist = await (await buildServer()).loadI18nList();
+  // const searchInput = (
+  //   <TextField aria-label="Search" type="search">
+  //     <InputGroup>
+  //       <InputGroup.Prefix>
+  //         <SearchIcon className="text-base text-muted pointer-events-none flex-shrink-0" />
+  //       </InputGroup.Prefix>
+  //       <InputGroup.Input className="text-sm" placeholder="Search..." />
+  //       <InputGroup.Suffix>
+  //         <Kbd className="hidden lg:inline-flex">
+  //           <Kbd.Abbr keyValue="command" />
+  //           <Kbd.Content>K</Kbd.Content>
+  //         </Kbd>
+  //       </InputGroup.Suffix>
+  //     </InputGroup>
+  //   </TextField>
+  // );
 
   return (
-    <HeroUINavbar maxWidth="2xl" position="sticky">
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <NavbarBrand as="li" className="gap-3 max-w-fit">
-          <NextLink className="flex justify-start items-center gap-3" href="/">
-          {/* <Logo /> */}
-            <p className="font-bold text-3xl text-inherit">iBoot</p>
+    <nav className="sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg">
+      <header className="mx-auto flex h-16 max-w-[1280px] items-center justify-between gap-4 px-6">
+        <div className="flex items-center gap-4">
+          <NextLink className="flex items-center gap-1" href="/">
+            <Logo />
           </NextLink>
-        </NavbarBrand>
-        <ul className="hidden lg:flex gap-4 justify-start pl-4">
-          {siteConfig.navItems.map(async (item) => (
-            <NavbarItem key={item.href}>
-              <NextLink
-                className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium",
-                )}
-                color="foreground"
-                href={item.href}
-              >
-                {await GetI18n("Website.TopNavbar", item.label)}
-              </NextLink>
-            </NavbarItem>
-          ))}
-        </ul>
-      </NavbarContent>
-
-      <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
-        justify="end"
-      >
-        <NavbarItem className="hidden sm:flex gap-2">
-          <ThemeSwitch />
-        </NavbarItem>
-        <NavbarItem className="hidden lg:flex"><SearchInput /></NavbarItem>
-        <div className="w-40">
-          <I18nList data={i18nList} lang={lang} />
+          <ul className="hidden lg:flex gap-6 ml-2">
+            <NextLink
+              className={clsx(
+                "text-foreground hover:text-accent transition-colors",
+                "data-[active=true]:text-accent data-[active=true]:font-medium",
+              )}
+              href="/"
+            >
+              {home}
+            </NextLink>
+            {navList.map((item) => (
+              <li key={item.id}>
+                <NextLink
+                  className={clsx(
+                    "text-foreground hover:text-accent transition-colors",
+                    "data-[active=true]:text-accent data-[active=true]:font-medium",
+                  )}
+                  href={`${item.jumpUrl ? item.jumpUrl : item.uri}`}
+                  target={item.jumpUrl ? '_blank' : '_self'}
+                >
+                  {item.jumpText ? item.jumpText : item.name}
+                </NextLink>
+              </li>
+            ))}
+          </ul>
         </div>
-      </NavbarContent>
 
-      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <ThemeSwitch />
-        <NavbarMenuToggle />
-      </NavbarContent>
-
-      <NavbarMenu>
-        <SearchInput />
-        <div className="mx-4 mt-2 flex flex-col gap-2">
-          {siteConfig.navMenuItems.map(async (item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                color='foreground'
-                href={item.href}
-                size="lg"
-              >
-                {await GetI18n("Website.TopNavbar", item.label)}
-              </Link>
-            </NavbarMenuItem>
-          ))}
-          <div className="w-full mt-4">
-            <I18nList data={i18nList} lang={lang} />
+        <div className="hidden sm:flex items-center gap-2">
+          {/* <div className="hidden lg:flex">{searchInput}</div> */}
+          <ThemeSwitch />
+          <div className="hidden md:flex">
+            <LanguageSelect languageData={i18nList} locale={locale} />
           </div>
         </div>
-      </NavbarMenu>
-    </HeroUINavbar>
+      </header>
+    </nav>
   );
 };

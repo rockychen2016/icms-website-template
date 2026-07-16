@@ -1,0 +1,28 @@
+{
+  "site": {
+    "title": "五六电商",
+    "description": "优质在线购物体验"
+  },
+  "nav": {
+    "home": "首页",
+    "products": "商品",
+    "cart": "购物车",
+    "about": "关于",
+    "contact": "联系"
+  },
+  "home": {
+    "hero": {
+      "title": "发现品质好物",
+      "subtitle": "为你的生活精挑细选"
+    }
+  },
+  "common": {
+    "loading": "加载中...",
+    "viewMore": "查看更多",
+    "buyNow": "立即购买",
+    "addToCart": "加入购物车"
+  },
+  "footer": {
+    "copyright": "© 2026 五六电商 版权所有"
+  }
+}

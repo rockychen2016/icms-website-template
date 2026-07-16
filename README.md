@@ -1,4 +1,4 @@
-# iboot-website-template
+# icms-website-template
 
 这是iCMS系统前端网站模板骨架，可以快速为用户建立网站，该网站模板骨架使用 Next.js 16 和 HeroUI v3创建, 网站内容依赖于iCMS管理，从而省去了建搭建后台内容管理的时间成本，它适合多语言版本的网站。
 

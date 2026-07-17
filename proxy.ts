@@ -1,9 +1,9 @@
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
-import { getServerHttpCookies, ICookies } from "@rock.chen/icms-http-client"
+import { NextRequest, NextResponse } from "next/server";
+import { getServerHttpCookies, ICookies, setServerHttpHeaders } from "@rock.chen/icms-http-client"
 import { ICMSServer } from "icms-api";
 
-export async function proxy() {
+export async function proxy(request: NextRequest) {
     //获取Cookies
     const readCookies = await cookies();
     const c: ICookies = {
@@ -14,6 +14,11 @@ export async function proxy() {
     const httpOpts = getServerHttpCookies(c);
     //Cookies存在icms必需的参数，直接放行
     if (httpOpts.lang && httpOpts.websiteId && httpOpts.websiteNo) {
+        setServerHttpHeaders({
+            set(key, value) {
+                request.headers.set(key, value)
+            }
+        }, httpOpts)
         return NextResponse.next();
     }
     //不存在时获取默网站设置Cookies
